@@ -1,3 +1,4 @@
+//HECHO POR LEONARDO BETANCUR A.K.A. BETAPANDERETA 
 #include <SoftwareSerial.h>
 #include <math.h>
 int rx = 10;
@@ -22,6 +23,7 @@ void loop() {
     else Serial.print("\nbyte sin procesar\n");
   }
 }
+
 void makeData() {
   int i = 0;
   double  fx = 0;
