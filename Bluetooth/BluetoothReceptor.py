@@ -1,3 +1,4 @@
+##HECHO POR LEONARDO BETANCUR A.K.A. BETAPANDERETA
 import serial
 port="COM6"
 cont = 0
