@@ -13,7 +13,7 @@ void setup() {
   miBto.begin(9600);
   Serial.print("--------------------------");
   Serial.print("\n|PUERTO SERIAL CONECTADO|\n ");
-  Serial.print("-------------------------\n ");
+  Serial.print("------------------------- ");
 }
 
 void loop() {
@@ -25,7 +25,7 @@ void loop() {
         makeData();
         break;
       case 48:
-        miBto.print('0');
+        miBto.println('0');
         Serial.println("TRANSMISIÓN IRRUMPIDA");
         break;
       default:
@@ -35,8 +35,8 @@ void loop() {
 }
 
 void makeData() {
-  int i = 0;
-  double  fx = 0;
+  int i = 1;
+  float  fx = 0;
   for (i; i <= 500; i++) {
     Serial.print("f(");
     Serial.print(i);
@@ -45,5 +45,6 @@ void makeData() {
     Serial.print(fx);
     Serial.print("\n");
     miBto.println(fx);
+    delay(500);
   }
 }

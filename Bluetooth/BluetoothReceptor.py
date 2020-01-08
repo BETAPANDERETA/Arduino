@@ -1,8 +1,8 @@
 #HECHO POR LEONARDO BETANCUR A.K.A BETAPANDERETA
 import serial
-import time
+import matplotlib.pyplot as plt
+from drawnow import *
 #VARIABLES
-sec = 10
 port = "COM6"
 lista_datos=[]
 #FUNCIONES
@@ -11,38 +11,31 @@ def procesar(info):
     dato = info.split(paso)
     for i in range (len(dato)):
         if dato[i] !='n' :
-            return dato[i]
-def convert_data(lista):
-    for i in range (len(lista)):
-        if lista[i] == "\x000.00":
-            lista[i] == "000.00"
-    return lista
-    
+            return float(dato[i])
+def hacer_graf():
+    plt.ylim([0,100000])
+    plt.xlim([0,200])
+    plt.grid(True)
+    plt.plot(lista_datos)
+    plt.ion()
 print("\t\t||ENCENDIDO||\n")
-##MAIN}
+#MAIN
 def main():
     cont = 0
     try:
         bto=serial.Serial(port, 9600)
         while True:
-            while bto.inWaiting()== False:
-                print("CONECTANDO ...")
-                time.sleep(sec)
-                if bto.inWaiting()== True:
-                    print("¡CONECTADO!")
-                    continue
             data = bto.readline()
             data_dec = data.decode()
-            if data == '0':
+            info = procesar(data_dec)
+            print("f("+str(cont)+") = ",info)
+            cont+=1
+            if info == 0:
                 print("FIN TRANSMISIÓN")
                 break
-            else: 
-                print("f("+str(cont)+") = ",data_dec)
-                lista_datos.append(procesar(data_dec))
-                cont+=1
-        if len(lista_datos)!= 0:
-            print(convert_data(lista_datos))
+            else:
+                lista_datos.append(info)
+                drawnow(hacer_graf)
     except OSError:
             print("Dispositivo fuera de línea")
-            print(lista_datos)
 main()
